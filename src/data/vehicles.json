@@ -1,0 +1,35 @@
+[
+  {
+    "plate": "B 1209 TQ",
+    "ownerId": "CST-001",
+    "ownerName": "Rafi Hidayat",
+    "brand": "Toyota Avanza",
+    "type": "Mobil",
+    "year": 2021,
+    "lastService": "Tune Up",
+    "km": 42100,
+    "notes": "Periksa kebocoran oli minor"
+  },
+  {
+    "plate": "D 7781 FI",
+    "ownerId": "CST-002",
+    "ownerName": "Citra Lestari",
+    "brand": "Honda Beat",
+    "type": "Motor",
+    "year": 2023,
+    "lastService": "Ganti Oli",
+    "km": 9800,
+    "notes": "Rantai perlu pelumasan"
+  },
+  {
+    "plate": "AD 4201 NN",
+    "ownerId": "CST-003",
+    "ownerName": "Yoga Pratama",
+    "brand": "Yamaha NMAX",
+    "type": "Motor",
+    "year": 2020,
+    "lastService": "Rem",
+    "km": 35800,
+    "notes": "Kampas rem harus diganti dalam 2 minggu"
+  }
+]

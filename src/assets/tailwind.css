@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+* {
+  @apply scroll-smooth;
+}
+
+html, body {
+  @apply w-full h-full m-0 p-0;
+}
+
+.dashboard-grid {
+  display: grid;
+  gap: 1rem;
+}

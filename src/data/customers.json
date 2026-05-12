@@ -1,0 +1,42 @@
+[
+  {
+    "id": "CST-001",
+    "name": "Rafi Hidayat",
+    "phone": "+62 812 3001 2201",
+    "email": "rafi@email.com",
+    "level": "Gold",
+    "vehicles": ["B 1209 TQ"],
+    "lastVisit": "2026-05-04",
+    "notes": "Sering melakukan tune up berkala. Prefer oli sintetis."
+  },
+  {
+    "id": "CST-002",
+    "name": "Citra Lestari",
+    "phone": "+62 812 3001 2202",
+    "email": "citra@email.com",
+    "level": "Silver",
+    "vehicles": ["D 7781 FI"],
+    "lastVisit": "2026-05-04",
+    "notes": "Minta reminder ganti oli setiap 6 bulan."
+  },
+  {
+    "id": "CST-003",
+    "name": "Yoga Pratama",
+    "phone": "+62 812 3001 2203",
+    "email": "yoga@email.com",
+    "level": "Bronze",
+    "vehicles": ["AD 4201 NN"],
+    "lastVisit": "2026-05-03",
+    "notes": "Pernah komplain suara rem bergetar."
+  },
+  {
+    "id": "CST-004",
+    "name": "Maya Putri",
+    "phone": "+62 812 3001 2204",
+    "email": "maya@email.com",
+    "level": "Gold",
+    "vehicles": ["F 9812 CA", "B 3345 XY"],
+    "lastVisit": "2026-05-02",
+    "notes": "Membawa kendaraan keluarga, sering pesan part sekaligus."
+  }
+]

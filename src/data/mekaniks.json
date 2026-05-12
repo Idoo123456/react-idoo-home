@@ -1,0 +1,32 @@
+[
+  {
+    "id": "MEK-001",
+    "name": "Dimas",
+    "skills": ["Tune Up", "Mesin"],
+    "currentJobs": 6,
+    "status": "Tersedia",
+    "phone": "+62 812 5000 1001",
+    "rating": 4.8,
+    "notes": "Spesialis mesin diesel, cepat dan teliti"
+  },
+  {
+    "id": "MEK-002",
+    "name": "Aji",
+    "skills": ["Motor Matic"],
+    "currentJobs": 4,
+    "status": "Tersedia",
+    "phone": "+62 812 5000 1002",
+    "rating": 4.6,
+    "notes": "Cepat dalam perbaikan harian"
+  },
+  {
+    "id": "MEK-003",
+    "name": "Bagas",
+    "skills": ["Rem", "Kaki-kaki"],
+    "currentJobs": 3,
+    "status": "Istirahat",
+    "phone": "+62 812 5000 1003",
+    "rating": 4.5,
+    "notes": "Ahli dalam sistem pengereman"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "sku": "SP-001",
+    "name": "Oli Mesin 10W-40",
+    "stock": 42,
+    "price": 85000,
+    "status": "Aman",
+    "supplier": "PT Oli Sejahtera",
+    "lastRestock": "2026-04-20"
+  },
+  {
+    "sku": "SP-002",
+    "name": "Kampas Rem Depan",
+    "stock": 8,
+    "price": 120000,
+    "status": "Menipis",
+    "supplier": "CV Rem Jaya",
+    "lastRestock": "2026-03-12"
+  },
+  {
+    "sku": "SP-003",
+    "name": "Busi Iridium",
+    "stock": 16,
+    "price": 95000,
+    "status": "Aman",
+    "supplier": "PT Busi Makmur",
+    "lastRestock": "2026-04-02"
+  },
+  {
+    "sku": "SP-004",
+    "name": "Filter Udara",
+    "stock": 6,
+    "price": 75000,
+    "status": "Menipis",
+    "supplier": "PT Filter Prima",
+    "lastRestock": "2026-01-15"
+  }
+]

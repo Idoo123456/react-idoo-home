@@ -1,0 +1,41 @@
+[
+  {
+    "id": "BK-001",
+    "time": "09:00",
+    "date": "2026-05-12",
+    "customerId": "CST-001",
+    "customerName": "Rafi Hidayat",
+    "vehicle": "Toyota Avanza (B 1209 TQ)",
+    "service": "Tune Up & Pemeriksaan Mesin",
+    "status": "Terkonfirmasi",
+    "mechanic": "Dimas",
+    "notes": "Ganti oli, periksa klep dan setel ulang timing belt jika perlu",
+    "estimatedDurationMins": 90
+  },
+  {
+    "id": "BK-002",
+    "time": "10:30",
+    "date": "2026-05-12",
+    "customerId": "CST-002",
+    "customerName": "Citra Lestari",
+    "vehicle": "Honda Beat (D 7781 FI)",
+    "service": "Ganti Oli & Filter",
+    "status": "Menunggu",
+    "mechanic": "Aji",
+    "notes": "Gunakan oli 10W-40, cek rantai dan rem belakang",
+    "estimatedDurationMins": 45
+  },
+  {
+    "id": "BK-003",
+    "time": "13:00",
+    "date": "2026-05-12",
+    "customerId": "CST-003",
+    "customerName": "Yoga Pratama",
+    "vehicle": "Yamaha NMAX (AD 4201 NN)",
+    "service": "Perbaikan Rem",
+    "status": "Terkonfirmasi",
+    "mechanic": "Bagas",
+    "notes": "Ganti kampas rem depan, cek kaliper",
+    "estimatedDurationMins": 60
+  }
+]
