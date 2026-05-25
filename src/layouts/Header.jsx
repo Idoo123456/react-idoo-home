@@ -7,21 +7,29 @@ import {
   FaCarSide,
   FaChartPie,
   FaCog,
+  FaRegFileAlt,
+  FaRegListAlt,
+  FaRegDotCircle,
   FaHeadset,
   FaHome,
   FaMoon,
   FaSearch,
+  FaSignOutAlt,
   FaSun,
   FaTools,
 } from 'react-icons/fa';
 
 const mobileMenu = [
   { path: '/dashboard', icon: FaHome, label: 'Dashboard' },
-  { path: '/service', icon: FaTools, label: 'Service' },
+  { path: '/service', icon: FaRegListAlt, label: 'Service' },
+  { path: '/mekanik', icon: FaTools, label: 'Mekanik' },
+  { path: '/booking', icon: FaRegDotCircle, label: 'Booking' },
   { path: '/kendaraan', icon: FaCarSide, label: 'Kendaraan' },
-  { path: '/customers', icon: FaHeadset, label: 'Customer' },
+  { path: '/customers', icon: FaHeadset, label: 'Pelanggan' },
+  { path: '/sparepart', icon: FaRegFileAlt, label: 'Sparepart' },
+  { path: '/invoice', icon: FaRegFileAlt, label: 'Invoice' },
   { path: '/analytics', icon: FaChartPie, label: 'Laporan' },
-  { path: '/settings', icon: FaCog, label: 'Pengaturan' },
+  { path: '/settings', icon: FaCog, label: 'Settings' },
 ];
 
 const searchData = [
@@ -113,19 +121,19 @@ const Header = ({ onQuickService, theme, onToggleTheme }) => {
   };
 
   return (
-    <header className="sticky top-0 z-20 border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_86%,transparent)] px-4 py-4 backdrop-blur-xl sm:px-6 lg:px-8 xl:px-10">
+    <header className="sticky top-0 z-20 border-b border-[var(--border)] bg-[color-mix(in_srgb,var(--surface)_86%,transparent)] px-4 py-3 backdrop-blur-xl sm:px-6 lg:px-8 xl:px-10">
       <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-        <div>
+        <div className="min-w-0">
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--primary)]">
             Workshop Management
           </p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-[var(--text)] sm:text-[30px]">
+          <h1 className="mt-1 text-xl font-semibold tracking-tight text-[var(--text)] sm:text-[30px]">
             Dashboard Bengkel Motor & Mobil
           </h1>
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <form onSubmit={handleSearchSubmit} className="relative min-w-0 sm:w-80">
+          <form onSubmit={handleSearchSubmit} className="relative min-w-0 sm:flex-1 xl:w-80 xl:flex-none">
             <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-soft)]" />
             <input
               value={keyword}
@@ -173,7 +181,7 @@ const Header = ({ onQuickService, theme, onToggleTheme }) => {
           <button
             type="button"
             onClick={onQuickService}
-            className="btn-primary inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-4 text-sm font-semibold transition hover:opacity-95"
+            className="btn-primary inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-4 text-sm font-semibold transition hover:opacity-95 sm:flex-none"
           >
             <FaCalendarAlt />
             Booking
@@ -201,7 +209,7 @@ const Header = ({ onQuickService, theme, onToggleTheme }) => {
               </span>
             </button>
             {showNotif && (
-              <div className="absolute right-0 mt-3 w-72 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-xl">
+              <div className="absolute right-0 mt-3 w-[min(18rem,calc(100vw-2rem))] rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4 shadow-xl">
                 {['Avanza B 1290 TQ selesai spooring', 'Beat AD 7781 FE menunggu sparepart', 'Customer Rafi konfirmasi booking'].map((item) => (
                   <button
                     type="button"
@@ -230,13 +238,13 @@ const Header = ({ onQuickService, theme, onToggleTheme }) => {
         </div>
       </div>
 
-      <nav className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-6 lg:hidden">
+      <nav className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 xl:hidden">
         {mobileMenu.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
-              `flex flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] ${
+              `flex min-w-[82px] flex-none flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] ${
                 isActive ? 'chip-active' : 'chip'
               }`
             }
@@ -245,6 +253,14 @@ const Header = ({ onQuickService, theme, onToggleTheme }) => {
             {item.label}
           </NavLink>
         ))}
+        <button
+          type="button"
+          onClick={() => alert('Anda menekan tombol keluar.')}
+          className="chip flex min-w-[82px] flex-none flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] text-[var(--danger)]"
+        >
+          <FaSignOutAlt />
+          Logout
+        </button>
       </nav>
 
       {keyword && (

@@ -48,9 +48,9 @@ const Sidebar = ({ onAddMenusClick }) => {
   );
 
   return (
-    <aside className="hidden h-dvh w-[238px] shrink-0 flex-col justify-between overflow-hidden bg-[#f4f6fb] px-3 py-3 lg:flex">
-      <div className="min-h-0">
-        <div className="mb-3 flex items-center justify-between rounded-[22px] bg-white px-4 py-4 shadow-[0_2px_8px_rgba(15,23,42,0.06)]">
+    <aside className="hidden h-dvh w-[238px] min-w-[238px] shrink-0 flex-col overflow-hidden bg-[#f4f6fb] px-3 py-3 xl:flex">
+      <div className="flex min-h-0 flex-1 flex-col">
+        <div className="mb-3 flex shrink-0 items-center justify-between rounded-[22px] bg-white px-4 py-4 shadow-[0_2px_8px_rgba(15,23,42,0.06)]">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#5353e2] text-white shadow-lg shadow-black/10">
               <FaWrench />
@@ -65,18 +65,18 @@ const Sidebar = ({ onAddMenusClick }) => {
         <button
           type="button"
           onClick={onAddMenusClick}
-          className="mb-3 flex w-full items-center justify-center gap-2 rounded-[16px] bg-[#5353e2] px-4 py-3 text-sm font-medium text-white shadow-[0_10px_24px_rgba(83,83,226,0.24)] transition hover:bg-[#3d3dc7]"
+          className="mb-3 flex w-full shrink-0 items-center justify-center gap-2 rounded-[16px] bg-[#5353e2] px-4 py-3 text-sm font-medium text-white shadow-[0_10px_24px_rgba(83,83,226,0.24)] transition hover:bg-[#3d3dc7]"
         >
           <FaPlus />
           <span>Service Baru</span>
         </button>
 
-        <nav className="overflow-hidden rounded-[22px] bg-white p-2 shadow-[0_2px_8px_rgba(15,23,42,0.06)]">
+        <nav className="min-h-0 flex-1 overflow-y-auto rounded-[22px] bg-white p-2 shadow-[0_2px_8px_rgba(15,23,42,0.06)]">
           <div className="space-y-1">{mainMenu.map(renderLink)}</div>
         </nav>
       </div>
 
-      <div className="rounded-[22px] bg-white p-2 shadow-[0_2px_8px_rgba(15,23,42,0.06)]">
+      <div className="mt-3 shrink-0 rounded-[22px] bg-white p-2 shadow-[0_2px_8px_rgba(15,23,42,0.06)]">
         <Link
           to="/settings"
           className="flex w-full items-center gap-3 rounded-[16px] px-4 py-3 text-sm text-[#5b6478] transition hover:bg-[#f4f6fb] hover:text-[#0f172a]"

@@ -9,7 +9,7 @@ const MainLayout = () => {
   const [theme, setTheme] = useState('light');
 
   return (
-    <div className="h-dvh w-screen overflow-hidden bg-[#f4f6fb] text-[#0f172a]">
+    <div className="h-dvh w-full overflow-hidden bg-[#f4f6fb] text-[#0f172a]">
       <div className="flex h-full w-full overflow-hidden">
         <Sidebar onAddMenusClick={() => setIsQuickServiceOpen(true)} />
 
@@ -19,7 +19,7 @@ const MainLayout = () => {
             theme={theme}
             onToggleTheme={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
           />
-          <main className="min-h-0 min-w-0 flex-1 overflow-y-auto px-4 py-5 sm:px-6 lg:px-8 xl:px-10">
+          <main className="min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto px-4 py-5 sm:px-6 lg:px-8 xl:px-10">
             <Outlet />
           </main>
         </div>
