@@ -7,7 +7,7 @@ import FrameworkListSearchFilter from "./FrameworkListSearchFilter";
 import ResponsiveDesign from "./ResponsiveDesign"; 
 import { motion, AnimatePresence } from "framer-motion";
 
-function App() {
+export function App() {
   // State untuk berpindah halaman sesuai materi yang dipelajari
   const [activeTab, setActiveTab] = useState("responsive");
 

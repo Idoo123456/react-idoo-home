@@ -1,42 +1,37 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useMemo, useState, useRef, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
+
+const allData = [
+  { id: '1001', name: 'Order #1001', category: 'Orders', date: '2026-04-15', type: 'order' },
+  { id: '1002', name: 'Order #1002', category: 'Orders', date: '2026-04-15', type: 'order' },
+  { id: '1003', name: 'Order #1003', category: 'Orders', date: '2026-04-15', type: 'order' },
+  { id: '1004', name: 'Order #1004 - Fikri', category: 'Orders', date: '2026-04-14', type: 'order' },
+  { id: 'c1', name: 'Fikri Muhaffizh', category: 'Customers', email: 'fikri@email.com', type: 'customer' },
+  { id: 'c2', name: 'Ahmad Hidayat', category: 'Customers', email: 'ahmad@email.com', type: 'customer' },
+  { id: 'c3', name: 'Siti Nurhaliza', category: 'Customers', email: 'siti@email.com', type: 'customer' },
+  { id: 'm1', name: 'Nasi Goreng Spesial', category: 'Menu', price: 'Rp 45.000', type: 'menu' },
+  { id: 'm2', name: 'Soto Ayam', category: 'Menu', price: 'Rp 30.000', type: 'menu' },
+  { id: 'm3', name: 'Rendang Daging', category: 'Menu', price: 'Rp 55.000', type: 'menu' },
+  { id: 'm4', name: 'Gado-Gado', category: 'Menu', price: 'Rp 25.000', type: 'menu' },
+];
 
 const SearchModal = ({ isOpen, onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [results, setResults] = useState([]);
   const modalRef = useRef(null);
 
-  // All searchable data
-  const allData = [
-    // Orders
-    { id: '1001', name: 'Order #1001', category: 'Orders', date: '2026-04-15', type: 'order' },
-    { id: '1002', name: 'Order #1002', category: 'Orders', date: '2026-04-15', type: 'order' },
-    { id: '1003', name: 'Order #1003', category: 'Orders', date: '2026-04-15', type: 'order' },
-    { id: '1004', name: 'Order #1004 - Fikri', category: 'Orders', date: '2026-04-14', type: 'order' },
-    // Customers
-    { id: 'c1', name: 'Fikri Muhaffizh', category: 'Customers', email: 'fikri@email.com', type: 'customer' },
-    { id: 'c2', name: 'Ahmad Hidayat', category: 'Customers', email: 'ahmad@email.com', type: 'customer' },
-    { id: 'c3', name: 'Siti Nurhaliza', category: 'Customers', email: 'siti@email.com', type: 'customer' },
-    // Menu Items
-    { id: 'm1', name: 'Nasi Goreng Spesial', category: 'Menu', price: 'Rp 45.000', type: 'menu' },
-    { id: 'm2', name: 'Soto Ayam', category: 'Menu', price: 'Rp 30.000', type: 'menu' },
-    { id: 'm3', name: 'Rendang Daging', category: 'Menu', price: 'Rp 55.000', type: 'menu' },
-    { id: 'm4', name: 'Gado-Gado', category: 'Menu', price: 'Rp 25.000', type: 'menu' },
-  ];
+  const results = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
 
-  // Handle search
-  useEffect(() => {
-    if (searchQuery.trim() === "") {
-      setResults([]);
-    } else {
-      const filtered = allData.filter(item =>
-        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (item.email && item.email.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (item.price && item.price.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (item.date && item.date.toLowerCase().includes(searchQuery.toLowerCase()))
-      );
-      setResults(filtered);
+    if (!query) {
+      return [];
     }
+
+    return allData.filter(item =>
+      item.name.toLowerCase().includes(query) ||
+      (item.email && item.email.toLowerCase().includes(query)) ||
+      (item.price && item.price.toLowerCase().includes(query)) ||
+      (item.date && item.date.toLowerCase().includes(query))
+    );
   }, [searchQuery]);
 
   useEffect(() => {

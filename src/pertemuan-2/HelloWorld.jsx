@@ -1,5 +1,3 @@
-import { createRoot } from "react-dom/client";
-
 export default function HelloWorld() {
         const propsUserCard = {
         nama: "Goku",

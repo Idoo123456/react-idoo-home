@@ -17,6 +17,7 @@ const Analytics = lazy(() => import('./pages/Analytics'));
 const Settings = lazy(() => import('./pages/Settings'));
 const Login = lazy(() => import('./pages/Login'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const ComponentLibrary = lazy(() => import('./pages/ComponentLibrary'));
 
 const PageLoader = () => (
   <div className="flex min-h-dvh items-center justify-center bg-[linear-gradient(180deg,var(--bg)_0%,var(--bg-alt)_100%)] px-6">
@@ -79,6 +80,7 @@ function App() {
               <Route path="/invoice" element={<Invoice />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/components" element={<ComponentLibrary />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
