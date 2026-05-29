@@ -12,3 +12,120 @@ html, body {
   display: grid;
   gap: 1rem;
 }
+
+:root[data-theme='dark'] body {
+  background:
+    radial-gradient(circle at top left, rgba(123, 131, 255, 0.14), transparent 28%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+}
+
+:root[data-theme='dark'] [class~='bg-white'],
+:root[data-theme='dark'] [class~='bg-[#ffffff]'],
+:root[data-theme='dark'] [class~='bg-[#f8fafc]'],
+:root[data-theme='dark'] [class~='bg-[#f4f6fb]'],
+:root[data-theme='dark'] [class~='bg-[#eef2f8]'],
+:root[data-theme='dark'] [class~='bg-gray-50'],
+:root[data-theme='dark'] [class~='bg-gray-100'] {
+  background-color: var(--surface) !important;
+}
+
+:root[data-theme='dark'] [class~='bg-[#f6f8fc]'],
+:root[data-theme='dark'] [class~='bg-[#f9fafb]'],
+:root[data-theme='dark'] [class~='bg-[#eef0ff]'],
+:root[data-theme='dark'] [class~='bg-slate-50'],
+:root[data-theme='dark'] [class~='bg-gray-50/50'] {
+  background-color: var(--surface-2) !important;
+}
+
+:root[data-theme='dark'] [class~='bg-[#e9f8ef]'],
+:root[data-theme='dark'] [class~='bg-[#dcfce7]'],
+:root[data-theme='dark'] [class~='bg-emerald-50'],
+:root[data-theme='dark'] [class~='bg-green-50'] {
+  background-color: color-mix(in srgb, var(--success) 14%, transparent) !important;
+}
+
+:root[data-theme='dark'] [class~='bg-[#fff7df]'],
+:root[data-theme='dark'] [class~='bg-[#fef3c7]'],
+:root[data-theme='dark'] [class~='bg-amber-50'],
+:root[data-theme='dark'] [class~='bg-yellow-50'] {
+  background-color: color-mix(in srgb, var(--warning) 16%, transparent) !important;
+}
+
+:root[data-theme='dark'] [class~='bg-[#fee2e2]'],
+:root[data-theme='dark'] [class~='bg-red-50'] {
+  background-color: color-mix(in srgb, var(--danger) 14%, transparent) !important;
+}
+
+:root[data-theme='dark'] [class~='bg-blue-50'],
+:root[data-theme='dark'] [class~='bg-[#dbeafe]'] {
+  background-color: color-mix(in srgb, var(--primary) 14%, transparent) !important;
+}
+
+:root[data-theme='dark'] [class~='text-[#0f172a]'],
+:root[data-theme='dark'] [class~='text-[#111827]'],
+:root[data-theme='dark'] [class~='text-gray-900'],
+:root[data-theme='dark'] [class~='text-slate-900'],
+:root[data-theme='dark'] [class~='text-black'] {
+  color: var(--text) !important;
+}
+
+:root[data-theme='dark'] [class~='text-[#5b6478]'],
+:root[data-theme='dark'] [class~='text-[#64748b]'],
+:root[data-theme='dark'] [class~='text-gray-600'],
+:root[data-theme='dark'] [class~='text-gray-700'],
+:root[data-theme='dark'] [class~='text-slate-600'],
+:root[data-theme='dark'] [class~='text-slate-700'] {
+  color: var(--text-muted) !important;
+}
+
+:root[data-theme='dark'] [class~='text-[#778096]'],
+:root[data-theme='dark'] [class~='text-[#8f9ab0]'],
+:root[data-theme='dark'] [class~='text-gray-400'],
+:root[data-theme='dark'] [class~='text-gray-500'],
+:root[data-theme='dark'] [class~='text-slate-400'],
+:root[data-theme='dark'] [class~='text-slate-500'] {
+  color: var(--text-soft) !important;
+}
+
+:root[data-theme='dark'] [class~='border-[#dbe3ef]'],
+:root[data-theme='dark'] [class~='border-[#eef2f8]'],
+:root[data-theme='dark'] [class~='border-[#e4e9f3]'],
+:root[data-theme='dark'] [class~='border-[#d7deea]'],
+:root[data-theme='dark'] [class~='border-[#e5e7eb]'],
+:root[data-theme='dark'] [class~='border-gray-100'],
+:root[data-theme='dark'] [class~='border-gray-200'],
+:root[data-theme='dark'] [class~='border-slate-100'],
+:root[data-theme='dark'] [class~='border-slate-200'] {
+  border-color: var(--border) !important;
+}
+
+:root[data-theme='dark'] [class~='border-gray-200/50'] {
+  border-color: color-mix(in srgb, var(--border) 70%, transparent) !important;
+}
+
+:root[data-theme='dark'] [class~='divide-[#eef2f8]'] > :not([hidden]) ~ :not([hidden]),
+:root[data-theme='dark'] [class~='divide-[#e5e7eb]'] > :not([hidden]) ~ :not([hidden]),
+:root[data-theme='dark'] [class~='divide-gray-100'] > :not([hidden]) ~ :not([hidden]),
+:root[data-theme='dark'] [class~='divide-gray-200'] > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--border) !important;
+}
+
+:root[data-theme='dark'] [class~='from-white'] {
+  --tw-gradient-from: var(--surface) !important;
+  --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position)) !important;
+}
+
+:root[data-theme='dark'] [class~='to-[#f8fafc]'],
+:root[data-theme='dark'] [class~='to-white'] {
+  --tw-gradient-to: var(--surface-2) !important;
+}
+
+:root[data-theme='dark'] table tbody tr {
+  border-color: var(--border);
+}
+
+:root[data-theme='dark'] input,
+:root[data-theme='dark'] select,
+:root[data-theme='dark'] textarea {
+  color: var(--text);
+}
