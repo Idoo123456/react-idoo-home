@@ -13,6 +13,9 @@ import Skeleton from '../components/ui/Skeleton';
 import Modal from '../components/ui/Modal';
 import TabsComponent from '../components/ui/TabsComponent';
 import Tooltip from '../components/ui/Tooltip';
+import Select from '../components/ui/Select';
+import Switch from '../components/ui/Switch';
+import Accordion from '../components/ui/Accordion';
 import {
   FaTools,
   FaUsers,
@@ -35,6 +38,8 @@ const ComponentLibrary = () => {
 
   const [showModal, setShowModal] = React.useState(false);
   const [showAlert, setShowAlert] = React.useState(true);
+  const [servicePriority, setServicePriority] = React.useState('urgent');
+  const [followUpEnabled, setFollowUpEnabled] = React.useState(true);
 
   const tableData = [
     { id: 'CST-001', name: 'Rafi Hidayat', email: 'rafi@example.com', phone: '0812-3456-7890', status: 'Gold' },
@@ -76,6 +81,24 @@ const ComponentLibrary = () => {
     },
   ];
 
+  const crmControlItems = [
+    {
+      value: 'triage',
+      title: 'Triage service masuk',
+      content: 'Service advisor mengecek keluhan, kilometer, dan riwayat pelanggan sebelum membuat estimasi.',
+    },
+    {
+      value: 'follow-up',
+      title: 'Follow up pelanggan',
+      content: 'CRM mengirim pengingat setelah kendaraan selesai agar rating dan keluhan tambahan tetap tercatat.',
+    },
+    {
+      value: 'handover',
+      title: 'Serah terima kendaraan',
+      content: 'Invoice, sparepart terpakai, dan catatan mekanik dicek bersama pelanggan sebelum unit keluar.',
+    },
+  ];
+
   return (
     <div className="space-y-8 py-6">
       {/* Header */}
@@ -90,6 +113,49 @@ const ComponentLibrary = () => {
           Koleksi komponen reusable dengan animasi modern & styling yang menarik
         </p>
       </div>
+
+      <section className="space-y-4">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            Shadcn-style CRM Controls
+          </h2>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            Penerapan 3 komponen UI selain card, button, dan badge: Select, Switch, dan Accordion.
+          </p>
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-900">
+            <Select
+              label="Prioritas service"
+              value={servicePriority}
+              onChange={(event) => setServicePriority(event.target.value)}
+              placeholder="Pilih prioritas"
+              helperText="Dipakai advisor untuk mengurutkan antrean kerja."
+              options={[
+                { value: 'regular', label: 'Regular' },
+                { value: 'urgent', label: 'Urgent' },
+                { value: 'warranty', label: 'Garansi' },
+              ]}
+            />
+
+            <Switch
+              checked={followUpEnabled}
+              onChange={setFollowUpEnabled}
+              label="Aktifkan follow up otomatis"
+              description="CRM akan menjadwalkan pesan setelah invoice service ditutup."
+            />
+
+            <div className="rounded-lg bg-gray-50 p-4 text-sm text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+              Prioritas saat ini: <span className="font-semibold capitalize text-gray-900 dark:text-white">{servicePriority}</span>
+              <br />
+              Follow up: <span className="font-semibold text-gray-900 dark:text-white">{followUpEnabled ? 'Aktif' : 'Nonaktif'}</span>
+            </div>
+          </div>
+
+          <Accordion items={crmControlItems} defaultValue="triage" />
+        </div>
+      </section>
 
       {/* 1. StatCard Component */}
       <section className="space-y-4">
