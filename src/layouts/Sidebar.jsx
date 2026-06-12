@@ -12,6 +12,8 @@ import {
   FaSignOutAlt,
   FaRegDotCircle,
   FaTools,
+  FaUserFriends,
+  FaUserPlus,
   FaWrench,
 } from 'react-icons/fa';
 
@@ -22,6 +24,8 @@ const mainMenu = [
   { path: '/booking', icon: FaRegDotCircle, label: 'Booking' },
   { path: '/kendaraan', icon: FaCarSide, label: 'Kendaraan' },
   { path: '/customers', icon: FaHeadset, label: 'Pelanggan' },
+  { path: '/member', icon: FaUserFriends, label: 'Member' },
+  { path: '/guest', icon: FaUserPlus, label: 'Guest' },
   { path: '/sparepart', icon: FaRegFileAlt, label: 'Sparepart' },
   { path: '/invoice', icon: FaRegFileAlt, label: 'Invoice' },
   { path: '/analytics', icon: FaChartPie, label: 'Laporan' },

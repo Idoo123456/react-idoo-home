@@ -11,11 +11,14 @@ const Mekanik = lazy(() => import('./pages/Mekanik'));
 const Booking = lazy(() => import('./pages/Booking'));
 const Kendaraan = lazy(() => import('./pages/Kendaraan'));
 const Customers = lazy(() => import('./pages/Customers'));
+const Member = lazy(() => import('./pages/Member'));
+const Guest = lazy(() => import('./pages/Guest'));
 const Sparepart = lazy(() => import('./pages/Sparepart'));
 const Invoice = lazy(() => import('./pages/Invoice'));
 const Analytics = lazy(() => import('./pages/Analytics'));
 const Settings = lazy(() => import('./pages/Settings'));
 const Login = lazy(() => import('./pages/Login'));
+const GuestHome = lazy(() => import('./pages/GuestHome'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const ComponentLibrary = lazy(() => import('./pages/ComponentLibrary'));
 
@@ -68,6 +71,8 @@ function App() {
               <Route path="/login" element={<Login />} />
             </Route>
 
+            <Route path="/guest/home" element={<GuestHome />} />
+
             <Route element={<MainLayout />}>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
@@ -76,6 +81,8 @@ function App() {
               <Route path="/booking" element={<Booking />} />
               <Route path="/kendaraan" element={<Kendaraan />} />
               <Route path="/customers" element={<Customers />} />
+              <Route path="/member" element={<Member />} />
+              <Route path="/guest" element={<Guest />} />
               <Route path="/sparepart" element={<Sparepart />} />
               <Route path="/invoice" element={<Invoice />} />
               <Route path="/analytics" element={<Analytics />} />

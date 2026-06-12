@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { FaCarSide, FaEye, FaMotorcycle, FaPlus, FaWrench } from 'react-icons/fa';
+import { FaCarSide, FaEye, FaMotorcycle, FaPlus, FaWrench, FaTimes } from 'react-icons/fa';
 import DetailModal from '../components/DetailModal';
 
 const initialVehicles = [
@@ -51,43 +51,90 @@ const Kendaraan = () => {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="panel grid gap-4 rounded-[24px] p-5 md:grid-cols-3">
-          {[
-            ['plate', 'Nomor Plat'],
-            ['owner', 'Pemilik'],
-            ['brand', 'Merk / Model'],
-            ['year', 'Tahun'],
-            ['lastService', 'Service Terakhir'],
-            ['km', 'Kilometer'],
-          ].map(([name, label]) => (
-            <label key={name} className="space-y-2 text-sm text-[var(--text)]">
-              <span>{label}</span>
-              <input
-                name={name}
-                type={['year', 'km'].includes(name) ? 'number' : 'text'}
-                value={form[name]}
-                onChange={handleChange}
-                required
-                className="input-shell w-full rounded-2xl px-4 py-3 outline-none"
-              />
-            </label>
-          ))}
-          <label className="space-y-2 text-sm text-[var(--text)]">
-            <span>Tipe</span>
-            <select name="type" value={form.type} onChange={handleChange} className="input-shell w-full rounded-2xl px-4 py-3 outline-none">
-              <option>Mobil</option>
-              <option>Motor</option>
-            </select>
-          </label>
-          <div className="flex items-end gap-3 md:col-span-2">
-            <button type="button" onClick={() => setShowForm(false)} className="btn-secondary rounded-2xl px-5 py-3 text-sm">
-              Batal
-            </button>
-            <button type="submit" className="btn-primary rounded-2xl px-5 py-3 text-sm">
-              Simpan Kendaraan
-            </button>
-          </div>
-        </form>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+          <form onSubmit={handleSubmit} className="relative w-full max-w-2xl animate-in fade-in zoom-in duration-300">
+            {/* Card dengan gradient background */}
+            <div className="rounded-3xl bg-gradient-to-br from-slate-50 to-slate-100 p-8 shadow-2xl dark:from-slate-900 dark:to-slate-800">
+              
+              {/* Header */}
+              <div className="mb-8 flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-[var(--primary)]">Tambah Data</p>
+                  <h3 className="mt-2 text-3xl font-bold bg-gradient-to-r from-[var(--primary)] to-blue-600 bg-clip-text text-transparent">
+                    Kendaraan Baru
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowForm(false)}
+                  className="rounded-full bg-white p-3 shadow-lg transition hover:bg-slate-100 hover:shadow-xl dark:bg-slate-700 dark:hover:bg-slate-600"
+                >
+                  <FaTimes className="text-lg text-slate-600 dark:text-slate-300" />
+                </button>
+              </div>
+
+              {/* Form Grid */}
+              <div className="grid gap-6 md:grid-cols-2">
+                {[
+                  ['plate', 'Nomor Plat', 'Contoh: B 1209 TQ'],
+                  ['owner', 'Nama Pemilik', 'Nama pemilik kendaraan'],
+                  ['brand', 'Merk / Model', 'Contoh: Toyota Avanza'],
+                  ['lastService', 'Service Terakhir', 'Contoh: Tune Up'],
+                  ['year', 'Tahun', 'Tahun pembuatan'],
+                  ['km', 'Kilometer', 'Km saat ini'],
+                ].map(([name, label, placeholder]) => (
+                  <label key={name} className="group">
+                    <span className="block text-sm font-semibold text-slate-700 transition group-focus-within:text-[var(--primary)] dark:text-slate-300">
+                      {label}
+                    </span>
+                    <input
+                      name={name}
+                      type={['year', 'km'].includes(name) ? 'number' : 'text'}
+                      placeholder={placeholder}
+                      value={form[name]}
+                      onChange={handleChange}
+                      required
+                      className="mt-2 w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-slate-900 transition placeholder:text-slate-400 focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 dark:border-slate-600 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500"
+                    />
+                  </label>
+                ))}
+                
+                <label className="group">
+                  <span className="block text-sm font-semibold text-slate-700 transition group-focus-within:text-[var(--primary)] dark:text-slate-300">
+                    Tipe Kendaraan
+                  </span>
+                  <select 
+                    name="type" 
+                    value={form.type} 
+                    onChange={handleChange} 
+                    className="mt-2 w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-slate-900 transition focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/20 dark:border-slate-600 dark:bg-slate-800 dark:text-white"
+                  >
+                    <option>Mobil</option>
+                    <option>Motor</option>
+                  </select>
+                </label>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="mt-8 flex gap-3 pt-6 border-t border-slate-200 dark:border-slate-700">
+                <button 
+                  type="button" 
+                  onClick={() => setShowForm(false)} 
+                  className="flex-1 rounded-xl border-2 border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 hover:shadow-md dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                >
+                  Batal
+                </button>
+                <button 
+                  type="submit" 
+                  className="flex-1 rounded-xl bg-gradient-to-r from-[var(--primary)] to-blue-600 px-6 py-3 font-semibold text-white shadow-lg transition hover:shadow-xl hover:-translate-y-0.5"
+                >
+                  <FaPlus className="mb-0.5 inline mr-2" />
+                  Simpan Kendaraan
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       )}
 
       <div className="grid gap-4 md:grid-cols-3">

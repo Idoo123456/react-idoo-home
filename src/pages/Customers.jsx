@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import {
   FaBullhorn,
   FaCalendarAlt,
@@ -17,9 +17,10 @@ import {
   FaUserTag,
   FaUsers,
   FaVenusMars,
+  FaTrash,
 } from 'react-icons/fa';
-import mockData from '../data/mockData.json';
 import DetailModal from '../components/DetailModal';
+import { supabase } from '../components/supabaseClient';
 
 const levelStyle = {
   Bronze: 'bg-[color-mix(in_srgb,var(--warning)_16%,transparent)] text-[var(--warning)]',
@@ -37,75 +38,6 @@ const statusStyle = {
   Nonaktif: 'bg-[color-mix(in_srgb,var(--danger)_14%,transparent)] text-[var(--danger)]',
 };
 
-const customerExtras = [
-  {
-    gender: 'Laki-laki',
-    cityProvince: 'Jakarta, DKI Jakarta',
-    joinedDate: '2021-02-15',
-    memberStatus: 'Aktif',
-    feedback: 'Pelayanan cepat, reminder servis sangat membantu.',
-    source: 'Instagram',
-    campaign: 'Promo Tune Up Mei',
-    lastLogin: '2026-05-28 20:14',
-    device: 'Android - Samsung A54',
-    loginLocation: 'Jakarta Selatan',
-  },
-  {
-    gender: 'Perempuan',
-    cityProvince: 'Bandung, Jawa Barat',
-    joinedDate: '2022-06-01',
-    memberStatus: 'Aktif',
-    feedback: 'Admin responsif dan estimasi biaya jelas.',
-    source: 'TikTok',
-    campaign: 'Gratis Cek Rem',
-    lastLogin: '2026-05-27 18:42',
-    device: 'iPhone 13',
-    loginLocation: 'Bandung',
-  },
-  {
-    gender: 'Laki-laki',
-    cityProvince: 'Surabaya, Jawa Timur',
-    joinedDate: '2020-11-20',
-    memberStatus: 'Prospek',
-    feedback: 'Ingin pilihan jadwal service lebih banyak.',
-    source: 'Referral',
-    campaign: 'Member Get Member',
-    lastLogin: '2026-05-26 09:11',
-    device: 'Windows - Chrome',
-    loginLocation: 'Surabaya',
-  },
-  {
-    gender: 'Perempuan',
-    cityProvince: 'Jakarta Selatan, DKI Jakarta',
-    joinedDate: '2019-08-05',
-    memberStatus: 'Aktif',
-    feedback: 'Cocok untuk service kendaraan keluarga.',
-    source: 'Google Ads',
-    campaign: 'Diskon Oli 20%',
-    lastLogin: '2026-05-28 07:35',
-    device: 'Android - Oppo Reno',
-    loginLocation: 'Jakarta Selatan',
-  },
-];
-
-const enrichCustomer = (customer, index) => {
-  const extra = customerExtras[index % customerExtras.length];
-  return {
-    ...extra,
-    ...customer,
-    cityProvince: customer.cityProvince || extra.cityProvince,
-    joinedDate: customer.joinedDate || customer.joined || extra.joinedDate,
-    memberStatus: customer.memberStatus || extra.memberStatus,
-    membershipLevel: customer.membershipLevel || customer.level,
-    feedback: customer.feedback || extra.feedback,
-    source: customer.source || extra.source,
-    campaign: customer.campaign || extra.campaign,
-    lastLogin: customer.lastLogin || extra.lastLogin,
-    device: customer.device || extra.device,
-    loginLocation: customer.loginLocation || extra.loginLocation,
-  };
-};
-
 const initialForm = {
   name: '',
   gender: 'Laki-laki',
@@ -113,7 +45,7 @@ const initialForm = {
   email: '',
   address: '',
   cityProvince: '',
-  joinedDate: '2026-05-29',
+  joinedDate: new Date().toISOString().split('T')[0],
   memberStatus: 'Aktif',
   level: 'Bronze',
   vehicles: 1,
@@ -121,18 +53,31 @@ const initialForm = {
   feedback: '',
   source: 'Instagram',
   campaign: 'Promo Tune Up Mei',
-  lastLogin: '2026-05-29 08:00',
+  lastLogin: new Date().toISOString(),
   device: '',
   loginLocation: '',
 };
 
 const Customers = () => {
-  const [customers, setCustomers] = useState(() => mockData.customers.map(enrichCustomer));
+  const [customers, setCustomers] = useState([]);
   const [filter, setFilter] = useState('Semua');
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(initialForm);
   const [selected, setSelected] = useState(null);
   const [showDetail, setShowDetail] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const fetchCustomers = useCallback(async () => {
+    setLoading(true);
+    const { data, error } = await supabase.from('customers').select('*').order('created_at', { ascending: false });
+    if (error) console.error('Error fetching customers:', error);
+    else setCustomers(data);
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchCustomers();
+  }, [fetchCustomers]);
 
   const filteredCustomers = useMemo(
     () => (filter === 'Semua' ? customers : customers.filter((customer) => customer.level === filter)),
@@ -163,19 +108,33 @@ const Customers = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setCustomers([
-      {
-        ...form,
-        id: `CST-${String(customers.length + 1).padStart(3, '0')}`,
-        vehicles: Number(form.vehicles),
-        membershipLevel: form.level,
-      },
-      ...customers,
+    const { error } = await supabase.from('customers').insert([
+      { ...form, vehicles: Number(form.vehicles) },
     ]);
+
+    if (error) {
+      alert(`Error: ${error.message}`);
+    } else {
+      alert('Customer baru berhasil ditambahkan!');
+      fetchCustomers(); // Re-fetch data
+    }
+
     setForm(initialForm);
     setShowForm(false);
+  };
+
+  const handleDelete = async (customerId) => {
+    if (window.confirm('Apakah Anda yakin ingin menghapus customer ini?')) {
+      const { error } = await supabase.from('customers').delete().eq('id', customerId);
+      if (error) {
+        alert(`Error: ${error.message}`);
+      } else {
+        alert('Customer berhasil dihapus.');
+        fetchCustomers(); // Re-fetch data
+      }
+    }
   };
 
   return (
@@ -332,7 +291,7 @@ const Customers = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)] bg-[var(--surface)]">
-              {filteredCustomers.map((customer) => (
+              {loading ? (<tr><td colSpan="8" className="text-center p-8">Loading data...</td></tr>) : filteredCustomers.map((customer) => (
                 <tr key={customer.id} className="align-top transition hover:bg-[color-mix(in_srgb,var(--primary)_5%,var(--surface))]">
                   <td className="px-4 py-4">
                     <button
@@ -374,7 +333,7 @@ const Customers = () => {
                     <div className="space-y-2">
                       <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ${levelStyle[customer.level]}`}>
                         <FaStar />
-                        {customer.membershipLevel || customer.level}
+                        {customer.level}
                       </span>
                       <span className={`ml-0 block w-fit rounded-full px-3 py-1 text-xs font-semibold ${statusStyle[customer.memberStatus] || statusStyle.Aktif}`}>
                         {customer.memberStatus}
@@ -408,14 +367,23 @@ const Customers = () => {
                     </div>
                   </td>
                   <td className="px-4 py-4">
-                    <button
-                      type="button"
-                      onClick={() => openCustomerDetail(customer)}
-                      className="btn-secondary inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm"
-                    >
-                      <FaEye />
-                      Detail
-                    </button>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => openCustomerDetail(customer)}
+                        className="btn-secondary inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm"
+                      >
+                        <FaEye />
+                        Detail
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(customer.id)}
+                        className="btn-danger inline-flex items-center justify-center rounded-2xl p-2 text-sm"
+                      >
+                        <FaTrash />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -425,7 +393,7 @@ const Customers = () => {
       </section>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        {filteredCustomers.map((customer) => (
+        {loading ? (<p>Loading...</p>) : filteredCustomers.map((customer) => (
           <article key={customer.id} className="panel rounded-[24px] p-5 transition hover:-translate-y-0.5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div className="flex gap-4">

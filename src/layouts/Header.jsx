@@ -17,6 +17,8 @@ import {
   FaSignOutAlt,
   FaSun,
   FaTools,
+  FaUserFriends,
+  FaUserPlus,
 } from 'react-icons/fa';
 
 const mobileMenu = [
@@ -26,6 +28,8 @@ const mobileMenu = [
   { path: '/booking', icon: FaRegDotCircle, label: 'Booking' },
   { path: '/kendaraan', icon: FaCarSide, label: 'Kendaraan' },
   { path: '/customers', icon: FaHeadset, label: 'Pelanggan' },
+  { path: '/member', icon: FaUserFriends, label: 'Member' },
+  { path: '/guest', icon: FaUserPlus, label: 'Guest' },
   { path: '/sparepart', icon: FaRegFileAlt, label: 'Sparepart' },
   { path: '/invoice', icon: FaRegFileAlt, label: 'Invoice' },
   { path: '/analytics', icon: FaChartPie, label: 'Laporan' },
@@ -43,6 +47,8 @@ const searchData = [
   { title: 'Rafi Hidayat', subtitle: 'Customer Gold - 2 kendaraan', category: 'Customer', path: '/customers' },
   { title: 'Citra Lestari', subtitle: 'Customer Silver - 1 kendaraan', category: 'Customer', path: '/customers' },
   { title: 'Maya Putri', subtitle: 'Customer Gold - 3 kendaraan', category: 'Customer', path: '/customers' },
+  { title: 'Data Member BengkelPro', subtitle: 'Membership, booking, dan poin loyalitas', category: 'Member', path: '/member' },
+  { title: 'Data Guest BengkelPro', subtitle: 'Pengunjung, prospek, dan konversi member', category: 'Guest', path: '/guest' },
   { title: 'Laporan Service Mingguan', subtitle: 'Grafik service, omzet, rating, dan growth', category: 'Laporan', path: '/analytics' },
   { title: 'Pengaturan Bengkel', subtitle: 'Profil admin, notifikasi, invoice, backup', category: 'Pengaturan', path: '/settings' },
 ];
