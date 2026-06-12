@@ -30,6 +30,20 @@ const PageLoader = () => (
   </div>
 );
 
+const isAdminLoggedIn = () => {
+  if (typeof window === 'undefined') return false;
+
+  return localStorage.getItem('bengkelpro_user_mode') === 'admin';
+};
+
+const HomeRedirect = () => (
+  <Navigate to={isAdminLoggedIn() ? '/dashboard' : '/guest/home'} replace />
+);
+
+const AdminRoute = () => (
+  isAdminLoggedIn() ? <MainLayout /> : <Navigate to="/guest/home" replace />
+);
+
 class AppErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -73,8 +87,9 @@ function App() {
 
             <Route path="/guest/home" element={<GuestHome />} />
 
-            <Route element={<MainLayout />}>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/" element={<HomeRedirect />} />
+
+            <Route element={<AdminRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/service" element={<Service />} />
               <Route path="/mekanik" element={<Mekanik />} />
