@@ -77,7 +77,7 @@ const getInitials = (name) =>
     .slice(0, 2)
     .toUpperCase() || 'AB';
 
-const Header = ({ onQuickService, theme, onToggleTheme }) => {
+const Header = ({ onQuickService, onLogoutClick, theme, onToggleTheme }) => {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
   const [showNotif, setShowNotif] = useState(false);
@@ -261,7 +261,7 @@ const Header = ({ onQuickService, theme, onToggleTheme }) => {
         ))}
         <button
           type="button"
-          onClick={() => alert('Anda menekan tombol keluar.')}
+          onClick={onLogoutClick}
           className="chip flex min-w-[82px] flex-none flex-col items-center gap-1 rounded-2xl px-2 py-2 text-[11px] text-[var(--danger)]"
         >
           <FaSignOutAlt />

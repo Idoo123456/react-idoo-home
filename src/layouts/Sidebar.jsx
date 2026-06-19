@@ -31,8 +31,7 @@ const mainMenu = [
   { path: '/analytics', icon: FaChartPie, label: 'Laporan' },
 ];
 
-const Sidebar = ({ onAddMenusClick }) => {
-
+const Sidebar = ({ onAddMenusClick, onLogoutClick }) => {
   const renderLink = (item) => (
     <NavLink
       key={`${item.path}-${item.label}`}
@@ -90,7 +89,7 @@ const Sidebar = ({ onAddMenusClick }) => {
         </Link>
         <button
           type="button"
-          onClick={() => alert('Anda menekan tombol keluar.')}
+          onClick={onLogoutClick}
           className="flex w-full items-center gap-3 rounded-[16px] px-4 py-3 text-sm text-[var(--danger)] transition hover:bg-[color-mix(in_srgb,var(--danger)_10%,transparent)]"
         >
           <FaSignOutAlt className="text-sm" />

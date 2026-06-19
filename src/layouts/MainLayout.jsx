@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import AddMenusModal from '../components/AddMenusModal';
+import LogoutConfirmModal from '../components/LogoutConfirmModal';
+import { logoutAdmin } from '../utils/auth';
 
 const getInitialTheme = () => {
   if (typeof window === 'undefined') return 'light';
@@ -14,7 +16,9 @@ const getInitialTheme = () => {
 };
 
 const MainLayout = () => {
+  const navigate = useNavigate();
   const [isQuickServiceOpen, setIsQuickServiceOpen] = useState(false);
+  const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
   const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
@@ -23,14 +27,24 @@ const MainLayout = () => {
     localStorage.setItem('bengkelpro_theme', theme);
   }, [theme]);
 
+  const handleConfirmLogout = () => {
+    logoutAdmin();
+    setIsLogoutConfirmOpen(false);
+    navigate('/login', { replace: true });
+  };
+
   return (
     <div className="h-dvh w-full overflow-hidden bg-[var(--bg)] text-[var(--text)]">
       <div className="flex h-full w-full overflow-hidden">
-        <Sidebar onAddMenusClick={() => setIsQuickServiceOpen(true)} />
+        <Sidebar
+          onAddMenusClick={() => setIsQuickServiceOpen(true)}
+          onLogoutClick={() => setIsLogoutConfirmOpen(true)}
+        />
 
         <div className="flex h-full min-w-0 flex-1 flex-col overflow-hidden bg-[var(--bg)]">
           <Header
             onQuickService={() => setIsQuickServiceOpen(true)}
+            onLogoutClick={() => setIsLogoutConfirmOpen(true)}
             theme={theme}
             onToggleTheme={() => setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))}
           />
@@ -43,6 +57,12 @@ const MainLayout = () => {
       <AddMenusModal
         isOpen={isQuickServiceOpen}
         onClose={() => setIsQuickServiceOpen(false)}
+      />
+
+      <LogoutConfirmModal
+        isOpen={isLogoutConfirmOpen}
+        onCancel={() => setIsLogoutConfirmOpen(false)}
+        onConfirm={handleConfirmLogout}
       />
     </div>
   );
