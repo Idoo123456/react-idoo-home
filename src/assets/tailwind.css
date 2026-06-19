@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 * {
   @apply scroll-smooth;
@@ -15,7 +16,8 @@ html, body {
 
 :root[data-theme='dark'] body {
   background:
-    radial-gradient(circle at top left, rgba(123, 131, 255, 0.14), transparent 28%),
+    radial-gradient(circle at top left, rgba(129, 140, 248, 0.1), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.06), transparent 28%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
 }
 

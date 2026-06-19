@@ -8,8 +8,13 @@ CREATE TABLE IF NOT EXISTS "user" (
   name text NOT NULL,
   email text NOT NULL UNIQUE,
   password text NOT NULL,
+  role text NOT NULL DEFAULT 'member' CHECK (role IN ('member', 'admin')),
   created_at timestamp with time zone DEFAULT now()
 );
+
+ALTER TABLE "user"
+ADD COLUMN IF NOT EXISTS role text NOT NULL DEFAULT 'member'
+CHECK (role IN ('member', 'admin'));
 
 -- Disable RLS untuk user table (jika ada)
 -- Note: RLS perlu diatur di UI Supabase atau run ini terpisah
@@ -189,8 +194,8 @@ CREATE INDEX IF NOT EXISTS idx_invoices_status ON invoices(status);
 -- ============================================
 
 -- Insert sample user
-INSERT INTO "user" (name, email, password) VALUES
-  ('Mido Herdiansyah', 'mido24si@mahasiswa.pcr.ac.id', 'mido123')
+INSERT INTO "user" (name, email, password, role) VALUES
+  ('Mido Herdiansyah', 'mido24si@mahasiswa.pcr.ac.id', 'mido123', 'admin')
 ON CONFLICT (email) DO NOTHING;
 
 -- Insert sample customers

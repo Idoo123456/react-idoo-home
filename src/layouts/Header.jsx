@@ -20,6 +20,7 @@ import {
   FaUserFriends,
   FaUserPlus,
 } from 'react-icons/fa';
+import { getAdminProfile } from '../utils/profile';
 
 const mobileMenu = [
   { path: '/dashboard', icon: FaHome, label: 'Dashboard' },
@@ -53,21 +54,6 @@ const searchData = [
   { title: 'Pengaturan Bengkel', subtitle: 'Profil admin, notifikasi, invoice, backup', category: 'Pengaturan', path: '/settings' },
 ];
 
-const defaultProfile = {
-  name: 'Admin Bengkel',
-  email: 'admin@bengkelpro.test',
-  branch: 'Cabang Jakarta',
-};
-
-const getSavedProfile = () => {
-  try {
-    const savedProfile = localStorage.getItem('bengkelpro_admin_profile');
-    return savedProfile ? { ...defaultProfile, ...JSON.parse(savedProfile) } : defaultProfile;
-  } catch {
-    return defaultProfile;
-  }
-};
-
 const getInitials = (name) =>
   name
     .split(' ')
@@ -81,16 +67,16 @@ const Header = ({ onQuickService, onLogoutClick, theme, onToggleTheme }) => {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
   const [showNotif, setShowNotif] = useState(false);
-  const [profile, setProfile] = useState(getSavedProfile);
+  const [profile, setProfile] = useState(getAdminProfile);
 
   useEffect(() => {
     const handleProfileUpdated = (event) => {
-      setProfile(event.detail || getSavedProfile());
+      setProfile(event.detail || getAdminProfile());
     };
 
     const handleStorage = (event) => {
-      if (event.key === 'bengkelpro_admin_profile') {
-        setProfile(getSavedProfile());
+      if (['bengkelpro_admin_profile', 'bengkelpro_user'].includes(event.key)) {
+        setProfile(getAdminProfile());
       }
     };
 

@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes, Outlet } from 'react-router-dom';
 import './assets/tailwind.css';
 
 import MainLayout from './layouts/MainLayout';
@@ -36,13 +36,23 @@ const isAdminLoggedIn = () => {
   return localStorage.getItem('bengkelpro_user_mode') === 'admin';
 };
 
-const HomeRedirect = () => (
-  <Navigate to={isAdminLoggedIn() ? '/dashboard' : '/guest/home'} replace />
-);
+const isMemberLoggedIn = () => {
+  if (typeof window === 'undefined') return false;
+
+  return localStorage.getItem('bengkelpro_user_mode') === 'member';
+};
+
+const HomeRedirect = () => {
+  if (isAdminLoggedIn()) return <Navigate to="/dashboard" replace />;
+  if (isMemberLoggedIn()) return <Navigate to="/guest/home" replace />;
+  return <Navigate to="/guest/home" replace />;
+};
 
 const AdminRoute = () => (
   isAdminLoggedIn() ? <MainLayout /> : <Navigate to="/guest/home" replace />
 );
+
+
 
 class AppErrorBoundary extends React.Component {
   constructor(props) {

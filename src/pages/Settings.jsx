@@ -1,23 +1,9 @@
 import React, { useState } from 'react';
 import { FaBell, FaSave, FaShieldAlt, FaToggleOff, FaToggleOn, FaUserCog } from 'react-icons/fa';
-
-const defaultProfile = {
-  name: 'Admin Bengkel',
-  email: 'admin@bengkelpro.test',
-  branch: 'Cabang Jakarta',
-};
-
-const getSavedProfile = () => {
-  try {
-    const savedProfile = localStorage.getItem('bengkelpro_admin_profile');
-    return savedProfile ? { ...defaultProfile, ...JSON.parse(savedProfile) } : defaultProfile;
-  } catch {
-    return defaultProfile;
-  }
-};
+import { getAdminProfile } from '../utils/profile';
 
 const Settings = () => {
-  const [profile, setProfile] = useState(getSavedProfile);
+  const [profile, setProfile] = useState(getAdminProfile);
   const [settings, setSettings] = useState({ booking: true, notification: true, invoice: false, backup: true });
   const [saveMessage, setSaveMessage] = useState('');
 
