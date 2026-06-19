@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { FaCheckCircle, FaExclamationCircle, FaInfoCircle, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
 
 const iconMap = {
@@ -32,6 +32,8 @@ const ProfessionalAlert = ({
   autoClose = true, 
   autoCloseTime = 5000 
 }) => {
+  const shouldReduceMotion = useReducedMotion();
+
   useEffect(() => {
     if (isOpen && autoClose) {
       const timer = setTimeout(() => {
@@ -43,14 +45,32 @@ const ProfessionalAlert = ({
 
   const Icon = iconMap[type] || iconMap.info;
 
+  const getVariants = () => {
+    if (shouldReduceMotion) {
+      return {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1 },
+        exit: { opacity: 0 }
+      };
+    }
+    return {
+      hidden: { opacity: 0, y: -20, scale: 0.95 },
+      visible: { opacity: 1, y: 0, scale: 1 },
+      exit: { opacity: 0, y: -20, scale: 0.95 }
+    };
+  };
+
+  const variants = getVariants();
+
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -20, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -20, scale: 0.95 }}
-          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          transition={shouldReduceMotion ? { duration: 0.1 } : { duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="fixed left-0 right-0 top-6 z-50 mx-auto w-full max-w-md px-4 sm:px-0"
         >
           <div className={`relative overflow-hidden rounded-2xl border ${colorMap[type]} p-4 shadow-2xl backdrop-blur-xl`}>

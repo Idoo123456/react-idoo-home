@@ -34,6 +34,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import ProfessionalAlert from '../components/ProfessionalAlert';
 import LogoutConfirmModal from '../components/LogoutConfirmModal';
+import LogoutSuccessAlert from '../components/LogoutSuccessAlert';
 import { getMemberAccountProfile } from '../utils/profile';
 
 const services = [
@@ -123,6 +124,7 @@ const GuestHome = () => {
   const [memberMenuOpen, setMemberMenuOpen] = useState(false);
   const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
+  const [logoutSuccessOpen, setLogoutSuccessOpen] = useState(false);
   const [memberData, setMemberData] = useState(getSavedMemberProfile);
   const [profileForm, setProfileForm] = useState(getSavedMemberProfile);
 
@@ -145,6 +147,11 @@ const GuestHome = () => {
     localStorage.removeItem('bengkelpro_user');
     localStorage.removeItem('bengkelpro_user_mode');
     setLogoutConfirmOpen(false);
+    setLogoutSuccessOpen(true);
+  };
+
+  const handleGoToLogin = () => {
+    setLogoutSuccessOpen(false);
     navigate('/login');
   };
 
@@ -293,6 +300,13 @@ const GuestHome = () => {
                           className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-bold text-slate-700 transition hover:bg-indigo-50 hover:text-indigo-700 dark:text-slate-200 dark:hover:bg-indigo-900/20 dark:hover:text-indigo-300"
                         >
                           <FaEdit className="text-indigo-500" /> Setting Profil
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => { setMemberMenuOpen(false); openLogoutConfirm(); }}
+                          className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-bold text-red-600 transition hover:bg-red-50 dark:text-red-300 dark:hover:bg-red-900/20"
+                        >
+                          <FaSignOutAlt className="text-red-500" /> Logout
                         </button>
                       </motion.div>
                     )}
@@ -1129,6 +1143,23 @@ const GuestHome = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* LOGOUT CONFIRM MODAL */}
+      <LogoutConfirmModal
+        isOpen={logoutConfirmOpen}
+        onCancel={() => setLogoutConfirmOpen(false)}
+        onConfirm={handleLogout}
+        title="Keluar dari akun member?"
+        message="Sesi member Anda akan diakhiri dan Anda akan keluar dari Member Area."
+        confirmText="Ya, Keluar"
+      />
+
+      {/* LOGOUT SUCCESS ALERT */}
+      <LogoutSuccessAlert
+        isOpen={logoutSuccessOpen}
+        onClose={() => setLogoutSuccessOpen(false)}
+        onGoToLogin={handleGoToLogin}
+      />
     </div>
   );
 };

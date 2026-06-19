@@ -4,6 +4,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import AddMenusModal from '../components/AddMenusModal';
 import LogoutConfirmModal from '../components/LogoutConfirmModal';
+import LogoutSuccessAlert from '../components/LogoutSuccessAlert';
 import { logoutAdmin } from '../utils/auth';
 
 const getInitialTheme = () => {
@@ -19,6 +20,7 @@ const MainLayout = () => {
   const navigate = useNavigate();
   const [isQuickServiceOpen, setIsQuickServiceOpen] = useState(false);
   const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
+  const [isLogoutSuccessOpen, setIsLogoutSuccessOpen] = useState(false);
   const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
@@ -30,6 +32,11 @@ const MainLayout = () => {
   const handleConfirmLogout = () => {
     logoutAdmin();
     setIsLogoutConfirmOpen(false);
+    setIsLogoutSuccessOpen(true);
+  };
+
+  const handleGoToLogin = () => {
+    setIsLogoutSuccessOpen(false);
     navigate('/login', { replace: true });
   };
 
@@ -63,6 +70,12 @@ const MainLayout = () => {
         isOpen={isLogoutConfirmOpen}
         onCancel={() => setIsLogoutConfirmOpen(false)}
         onConfirm={handleConfirmLogout}
+      />
+
+      <LogoutSuccessAlert
+        isOpen={isLogoutSuccessOpen}
+        onClose={() => setIsLogoutSuccessOpen(false)}
+        onGoToLogin={handleGoToLogin}
       />
     </div>
   );
